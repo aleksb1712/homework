@@ -1,4 +1,5 @@
 import UIKit
+import Foundation
 
 var greeting = "Hello, playground"
 var isAdmin = false
@@ -78,7 +79,6 @@ func doubleNubmerSquared (_ number: Double) -> Double {
 print(doubleNubmerSquared(25.5))
 
 print(line)
-import Foundation
 func circleArea (_ radius: Double) -> Double{
     return Double.pi * pow(radius, 2)
 }
@@ -142,3 +142,39 @@ func Year(for mounth: Int) -> String {
     }
 }
 print(Year(for: 12))
+print(line)
+
+enum Currency: String, CaseIterable, Identifiable {
+    case usd = "USD"
+    case eur = "EUR"
+    case rub = "RUB"
+    case byn = "BYN"
+    
+    var id: String {self.rawValue}
+    var symbol: String {
+        switch self {
+        case .usd: return "$"
+        case .eur: return "€"
+        case .rub: return "₽"
+        case .byn: return "Б"
+        }
+    }
+        var rates: Double {
+            switch self {
+            case .usd: return 1.00
+            case .eur: return 0.85
+            case .rub: return 73.95
+            case .byn: return 2.80
+            }
+        }
+    }
+
+
+    
+    func currencyConverter(_ amount: Double, from: Currency, to: Currency) -> Double? {
+        let amountCurrency = amount / from.rates
+        return amountCurrency * to.rates
+        
+    }
+
+print(currencyConverter(12341.22, from: .byn, to: .rub))
