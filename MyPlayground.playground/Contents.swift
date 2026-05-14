@@ -1,4 +1,6 @@
+
 import UIKit
+import Foundation
 
 var greeting = "Hello, playground"
 var isAdmin = false
@@ -25,12 +27,12 @@ if (isAdmin == true || isModerator == true) && isDonat == true {
 }
 print(proModer)
 
-func sum(_ a: Int, _ b: Int) -> Int {
+func sumAB(_ a: Int, _ b: Int) -> Int {
    return a + b
 }
 
 func sum1(_ a: Double, _ b: Double) -> Double { a + b }
-let result = sum(10, 20)
+let result = sumAB(10, 20)
 let result1 = sum1(10.5, 30.9)
 print(result)
 print(result1)
@@ -47,15 +49,15 @@ print("______________________")
 
 let first = "Hello,"
 let last = "Misha"
-let fullHello = "\(first) \(last)"
-print(fullHello)
+let sumFullHello = "\(first) \(last)"
+print(sumFullHello)
 
 print("______________________")
 
-func helloName(_ text1 : String) -> String {
+func printHelloName(_ text1 : String) -> String {
     return "Hello, \(text1)"
 }
-print(helloName("Misha"))
+print(printHelloName("Misha"))
 
 var line = "______________________"
 print(line)
@@ -65,28 +67,41 @@ let str2 = "World!"
 let sumStr = str1.count + str2.count
 print(sumStr)
 
-func numberSquared(_ number: Int) -> Int {
+func  sumStr1(_ str1: String,_ str2: String) -> String {
+    return "\(str1) \(str2)"
+}
+
+print(sumStr1("Hello", "World"))
+
+func sumStr2(_ str1: String,_ str2: String) -> String {
+    return "\(str1) \(str2)"
+}
+print(sumStr2("Hello", "World"))
+let sumStrFull = sumStr2("Hello", "World") .count
+
+print(sumStrFull)
+
+func calculateNumberSquared(_ number: Int) -> Int {
     return number * number
 }
-    print(numberSquared(10))
+    print(calculateNumberSquared(10))
 
 print(line)
 
-func doubleNubmerSquared (_ number: Double) -> Double {
+func doubleNubmerSquared(_ number: Double) -> Double {
     return number * number
 }
 print(doubleNubmerSquared(25.5))
 
 print(line)
-import Foundation
-func circleArea (_ radius: Double) -> Double{
+func calculateCircleArea(_ radius: Double) -> Double {
     return Double.pi * pow(radius, 2)
 }
-print("Circle Area \(circleArea(12.6))")
+print("Circle Area \(calculateCircleArea(12.6))")
 
 print(line)
 
-func dayMode() -> String {
+func getDayMode() -> String {
     let hour = Calendar.current.component(.hour, from: Date())
     switch hour {
     case 0..<6:
@@ -104,10 +119,10 @@ func dayMode() -> String {
     }
     
 }
-print(dayMode())
+print(getDayMode())
 print(line)
 
-func dayMode1(for time: Int) -> String {
+func getDayMode1(for time: Int) -> String {
     switch time {
     case 0...5:
         return "Night"
@@ -124,10 +139,10 @@ func dayMode1(for time: Int) -> String {
     }
 }
 
-print(dayMode1(for: 10))
-print(dayMode1(for: 26))
+print(getDayMode1(for: 10))
+print(getDayMode1(for: 26))
 
-func Year(for mounth: Int) -> String {
+func getYear(for mounth: Int) -> String {
     switch mounth {
     case 12,1...2:
         return "Winter"
@@ -141,6 +156,40 @@ func Year(for mounth: Int) -> String {
         return "Error"
     }
 }
-print(Year(for: 12))
+print(getYear(for: 12))
 print(line)
 
+enum setCurrency: String, CaseIterable, Identifiable {
+    case usd = "USD"
+    case eur = "EUR"
+    case rub = "RUB"
+    case byn = "BYN"
+    
+    var id: String {self.rawValue}
+    var symbol: String {
+        switch self {
+        case .usd: return "$"
+        case .eur: return "€"
+        case .rub: return "₽"
+        case .byn: return "Б"
+        }
+    }
+        var rates: Double {
+            switch self {
+            case .usd: return 1.00
+            case .eur: return 0.85
+            case .rub: return 73.95
+            case .byn: return 2.80
+            }
+        }
+    }
+
+
+    
+    func currencyConverter(_ amount: Double, from: setCurrency, to: setCurrency) -> Double {
+        let amountCurrency = amount / from.rates
+        return amountCurrency * to.rates
+        
+    }
+
+print(currencyConverter(12341.22, from: .byn, to: .rub))
